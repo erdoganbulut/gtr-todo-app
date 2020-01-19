@@ -4,14 +4,17 @@ import { Button } from 'antd';
 
 import Routes from './routes';
 
+import AppHeader from './components/AppHeader';
+import AppFooter from './components/AppFooter';
+
 const App: React.FC = () => {
   return (
     <>
-      <div className="App">
-        App Works!
-        <Button type="primary">Button</Button>
-      </div>
+      <AppHeader />
+      App Works!
+      <Button type="primary">Button</Button>
       <Routes />
+      <AppFooter />
     </>
   );
 };
