@@ -1,0 +1,21 @@
+header {
+  display: flex;
+  align-items: center;
+  background: #001529;
+  padding: 0 24px;
+  .#{&}--logo {
+    padding: 0 12px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    line-height: 30px;
+    text-align: center;
+    color: #bbb;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 24px;
+  }
+  .#{&}--menu {
+    line-height: 64px;
+    margin: 0 24px;
+  }
+}
