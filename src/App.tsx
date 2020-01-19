@@ -5,6 +5,7 @@ import { Layout } from 'antd';
 import Routes from './routes';
 
 import AppHeader from './components/AppHeader';
+import AppBreadcrumb from './components/AppBreadcrumb';
 import AppFooter from './components/AppFooter';
 
 const App: React.FC = () => {
@@ -12,6 +13,7 @@ const App: React.FC = () => {
     <Layout>
       <AppHeader />
       <div className="content">
+        <AppBreadcrumb />
         <Routes />
       </div>
       <AppFooter />
