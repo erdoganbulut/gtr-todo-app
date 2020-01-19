@@ -1,0 +1,7 @@
+$this: 'breadcrumb';
+
+.component {
+  &.is-#{$this} {
+    margin-bottom: 12px;
+  }
+}
