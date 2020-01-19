@@ -1,6 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
-import { Button } from 'antd';
+import { Layout } from 'antd';
 
 import Routes from './routes';
 
@@ -9,13 +9,13 @@ import AppFooter from './components/AppFooter';
 
 const App: React.FC = () => {
   return (
-    <>
+    <Layout>
       <AppHeader />
-      App Works!
-      <Button type="primary">Button</Button>
-      <Routes />
+      <div className="content">
+        <Routes />
+      </div>
       <AppFooter />
-    </>
+    </Layout>
   );
 };
 
