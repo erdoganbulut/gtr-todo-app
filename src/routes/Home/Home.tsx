@@ -98,13 +98,21 @@ const rowSelection = {
 };
 
 const Home: React.FC = () => (
-  <Table
-    bordered
-    pagination={false}
-    rowSelection={rowSelection}
-    columns={columns}
-    dataSource={data}
-  />
+  <>
+    <p className="tar">
+      <Button type="primary">
+        Add Item
+        <Icon type="plus" />
+      </Button>
+    </p>
+    <Table
+      bordered
+      pagination={false}
+      rowSelection={rowSelection}
+      columns={columns}
+      dataSource={data}
+    />
+  </>
 );
 
 export default Home;
