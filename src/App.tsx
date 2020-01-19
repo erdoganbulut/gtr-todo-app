@@ -10,11 +10,13 @@ import AppFooter from './components/AppFooter';
 
 const App: React.FC = () => {
   return (
-    <Layout>
+    <Layout className="layout">
       <AppHeader />
-      <div className="content">
+      <div className="layout--content">
         <AppBreadcrumb />
-        <Routes />
+        <div className="layout--content__route">
+          <Routes />
+        </div>
       </div>
       <AppFooter />
     </Layout>
