@@ -1,0 +1,9 @@
+.layout {
+  &--content {
+    padding: 24px 48px;
+    &__route {
+      background: #fff;
+      padding: 24px;
+    }
+  }
+}
