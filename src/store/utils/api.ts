@@ -10,5 +10,5 @@ export default function apiCaller<T>(
       'Content-Type': 'application/json',
     },
     body: data ? JSON.stringify(data) : null,
-  }).then(res => res.json());
+  }).then(response => response.text().then(text => (text ? JSON.parse(text) : {})));
 }
