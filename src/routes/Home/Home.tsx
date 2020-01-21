@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table, Button, Icon, Spin } from 'antd';
 
 import { ApplicationStateI } from '../../store/modules/index';
-import { fetchTodos } from '../../store/modules/todo/actions';
+import { fetchTodos, removeTodo } from '../../store/modules/todo/actions';
 import { TodoStateI, TodoRawI } from '../../store/modules/todo/types';
 
 import TodoDelete from '../../components/TodoDelete';
@@ -36,6 +36,8 @@ const Home: React.FC = () => {
     dispatchPosts();
   }, [dispatchPosts]);
 
+  const dispatchRemove = (id: number) => dispatch(removeTodo(id));
+
   return (
     <>
       <p className="tar">
@@ -52,14 +54,16 @@ const Home: React.FC = () => {
             title="Action"
             key="action"
             render={(text, record: TodoRawI) => (
-              <Button.Group size="small">
-                <Button type="primary">
-                  <Icon type="edit" />
-                </Button>
-                <Button type="danger" onClick={() => TodoDelete(record)}>
-                  <Icon type="delete" />
-                </Button>
-              </Button.Group>
+              <>
+                <Button.Group size="small">
+                  <Button type="primary">
+                    <Icon type="edit" />
+                  </Button>
+                  <Button type="danger" onClick={() => TodoDelete(record, dispatchRemove)}>
+                    <Icon type="delete" />
+                  </Button>
+                </Button.Group>
+              </>
             )}
           />
         </Table>

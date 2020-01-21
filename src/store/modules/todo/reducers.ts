@@ -21,6 +21,15 @@ export const todoReducer = (
     case TodoActionTypes.FETCH_TODOS_ERROR: {
       return { ...state };
     }
+    case TodoActionTypes.REMOVE_TODO_ITEM: {
+      return { ...state, loading: true };
+    }
+    case TodoActionTypes.REMOVE_TODO_ITEM_SUCCESS: {
+      return { ...state, loading: false };
+    }
+    case TodoActionTypes.REMOVE_TODO_ITEM_ERROR: {
+      return { ...state };
+    }
     default:
       return state;
   }

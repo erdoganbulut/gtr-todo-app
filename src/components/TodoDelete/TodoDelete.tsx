@@ -3,7 +3,7 @@ import { TodoRawI } from '../../store/modules/todo/types';
 
 const { confirm } = Modal;
 
-const TodoDelete = (record: TodoRawI) => {
+const TodoDelete = (record: TodoRawI, dispatchRemove: Function) => {
   confirm({
     title: 'Are you sure delete this task?',
     content: 'Some descriptions',
@@ -11,10 +11,7 @@ const TodoDelete = (record: TodoRawI) => {
     okType: 'danger',
     cancelText: 'No',
     onOk() {
-      console.log('OK', record);
-    },
-    onCancel() {
-      console.log('Cancel', record);
+      dispatchRemove(record.id);
     },
   });
 };

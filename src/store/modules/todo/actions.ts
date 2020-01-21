@@ -12,3 +12,14 @@ export const fetchTodosSuccess = (data: TodoRawI[]) =>
 
 export const fetchTodosError = (message: string) =>
   action(TodoActionTypes.FETCH_TODOS_ERROR, message);
+
+export const removeTodo = (id: number) =>
+  action(TodoActionTypes.REMOVE_TODO_ITEM, [], {
+    method: 'DELETE',
+    route: `/todos/${id}`,
+  });
+
+export const removeTodoSuccess = () => action(TodoActionTypes.REMOVE_TODO_ITEM_SUCCESS);
+
+export const removeTodoError = (message: string) =>
+  action(TodoActionTypes.REMOVE_TODO_ITEM_ERROR, message);
