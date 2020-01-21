@@ -7,12 +7,15 @@ export interface TodoStateI {
 }
 export type ApiResponse = Record<string, any>;
 
-export interface TodoRawI extends ApiResponse {
-  id: number;
+export interface TodoItemI extends ApiResponse {
   order: number;
   title: string;
-  url: string;
   complated: boolean;
+}
+
+export interface TodoRawI extends TodoItemI {
+  id: number;
+  url: string;
 }
 
 export const TodoActionTypes = {
@@ -22,6 +25,9 @@ export const TodoActionTypes = {
   REMOVE_TODO_ITEM: '@@todo/REMOVE_TODO_ITEM',
   REMOVE_TODO_ITEM_SUCCESS: '@@todo/REMOVE_TODO_ITEM_SUCCESS',
   REMOVE_TODO_ITEM_ERROR: '@@todo/REMOVE_TODO_ITEM_ERROR',
+  ADD_TODO_ITEM: '@@todo/ADD_TODO_ITEM',
+  ADD_TODO_ITEM_SUCCESS: '@@todo/ADD_TODO_ITEM_SUCCESS',
+  ADD_TODO_ITEM_ERROR: '@@todo/ADD_TODO_ITEM_ERROR',
 };
 
 export interface DispatchToPropsI {

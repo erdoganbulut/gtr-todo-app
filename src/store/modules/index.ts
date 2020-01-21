@@ -8,6 +8,7 @@ import { TodoStateI } from './todo/types';
 interface MetaI {
   method: string;
   route: string;
+  data?: object;
 }
 
 // The top-level state object

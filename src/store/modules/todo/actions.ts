@@ -1,6 +1,9 @@
 import { action } from 'typesafe-actions';
-import { TodoRawI, TodoActionTypes } from './types';
+import { TodoItemI, TodoRawI, TodoActionTypes } from './types';
 
+/**
+ * GET LIST
+ */
 export const fetchTodos = () =>
   action(TodoActionTypes.FETCH_TODOS, [], {
     method: 'get',
@@ -13,6 +16,9 @@ export const fetchTodosSuccess = (data: TodoRawI[]) =>
 export const fetchTodosError = (message: string) =>
   action(TodoActionTypes.FETCH_TODOS_ERROR, message);
 
+/**
+ * REMOVE ITEM
+ */
 export const removeTodo = (id: number) =>
   action(TodoActionTypes.REMOVE_TODO_ITEM, [], {
     method: 'DELETE',
@@ -23,3 +29,18 @@ export const removeTodoSuccess = () => action(TodoActionTypes.REMOVE_TODO_ITEM_S
 
 export const removeTodoError = (message: string) =>
   action(TodoActionTypes.REMOVE_TODO_ITEM_ERROR, message);
+
+/**
+ * ADD ITEM
+ */
+export const addTodo = (item: TodoItemI) =>
+  action(TodoActionTypes.ADD_TODO_ITEM, [], {
+    method: 'POST',
+    route: `/todos`,
+    data: item,
+  });
+
+export const addTodoSuccess = () => action(TodoActionTypes.ADD_TODO_ITEM_SUCCESS);
+
+export const addTodoError = (message: string) =>
+  action(TodoActionTypes.ADD_TODO_ITEM_ERROR, message);

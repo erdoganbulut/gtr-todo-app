@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,6 +9,7 @@ import { fetchTodos, removeTodo } from '../../store/modules/todo/actions';
 import { TodoStateI, TodoRawI } from '../../store/modules/todo/types';
 
 import TodoDelete from '../../components/TodoDelete';
+import TodoAdd from '../../components/TodoAdd';
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
@@ -23,6 +24,8 @@ const rowSelection = {
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
+
+  const [todoAdd, setTodoAdd] = useState(false);
 
   const state: TodoStateI = useSelector(({ todo }: ApplicationStateI) => ({
     loading: todo.loading,
@@ -40,8 +43,9 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <TodoAdd isActive={todoAdd} setIsActive={setTodoAdd} />
       <p className="tar">
-        <Button type="primary">
+        <Button type="primary" onClick={() => setTodoAdd(true)}>
           Add Item
           <Icon type="plus" />
         </Button>
