@@ -5,23 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table, Button, Icon, Spin } from 'antd';
 
 import { ApplicationStateI } from '../../store/modules/index';
-import { fetchTodos, removeTodo } from '../../store/modules/todo/actions';
+import { fetchTodos, removeTodo, updateTodo } from '../../store/modules/todo/actions';
 import { TodoStateI, TodoRawI } from '../../store/modules/todo/types';
 
 import TodoDelete from '../../components/TodoDelete';
 import TodoAdd from '../../components/TodoAdd';
 import TodoUpdate from '../../components/TodoUpdate';
-
-// rowSelection object indicates the need for row selection
-const rowSelection = {
-  onChange: (selectedRowKeys: any, selectedRows: any) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-  getCheckboxProps: (record: TodoRawI) => ({
-    disabled: record.name === 'Disabled User', // Column configuration not to be checked
-    name: record.name,
-  }),
-};
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -52,6 +41,39 @@ const Home: React.FC = () => {
   }, [dispatchPosts]);
 
   const dispatchRemove = (id: number) => dispatch(removeTodo(id));
+
+  const dispatchUpdate = (item: TodoRawI, selected: boolean) => {
+    const updateData = {
+      title: item.title,
+      order: item.order,
+      completed: selected,
+    };
+    dispatch(updateTodo(item.id, updateData));
+  };
+
+  const [selectedRows, setSelectedRows] = useState<number[] | string[]>([]);
+
+  // rowSelection object indicates the need for row selection
+  const rowSelection = {
+    selectedRowKeys: selectedRows,
+    onSelect: (record: TodoRawI, selected: boolean) => {
+      dispatchUpdate(record, selected);
+    },
+    onSelectAll: (selected: boolean) => {
+      state.data.forEach((item: TodoRawI) => {
+        dispatchUpdate(item, selected);
+      });
+    },
+    onChange: (selectedRowKeys: number[] | string[]) => setSelectedRows(selectedRowKeys),
+  };
+
+  useEffect(() => {
+    const rows: number[] = [];
+    state.data.forEach((item: TodoRawI, index: number) => {
+      if (item.completed) rows.push(index);
+    });
+    setSelectedRows(rows);
+  }, [state.data]);
 
   return (
     <>
