@@ -33,8 +33,4 @@ export const TodoActionTypes = {
   UPDATE_TODO_ITEM_ERROR: '@@todo/UPDATE_TODO_ITEM_ERROR',
 };
 
-export interface DispatchToPropsI {
-  fetchTodos: () => MetaActionI;
-}
-
 export default TodoActionTypes;
