@@ -6,6 +6,7 @@ import { Table, Button, Icon, Spin } from 'antd';
 
 import { ApplicationStateI } from '../../store/modules/index';
 import { fetchTodos, removeTodo, updateTodo } from '../../store/modules/todo/actions';
+import { setBreadcrumb } from '../../store/modules/breadcrumb/actions';
 import { TodoStateI, TodoRawI } from '../../store/modules/todo/types';
 
 import TodoDelete from '../../components/TodoDelete';
@@ -25,6 +26,10 @@ const Home: React.FC = () => {
 
   const dispatchRemove = (id: number) => dispatch(removeTodo(id));
 
+  const dispatchBreadcrumb = useCallback(() => dispatch(setBreadcrumb([{ title: 'Home' }])), [
+    dispatch,
+  ]);
+
   const dispatchUpdate = (item: TodoRawI, selected: boolean) => {
     const updateData = {
       title: item.title,
@@ -37,6 +42,10 @@ const Home: React.FC = () => {
   useEffect(() => {
     dispatchPosts();
   }, [dispatchPosts]);
+
+  useEffect(() => {
+    dispatchBreadcrumb();
+  }, [dispatchBreadcrumb]);
 
   const [todoAddModal, setTodoAddModal] = useState(false);
 

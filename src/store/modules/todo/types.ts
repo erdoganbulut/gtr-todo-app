@@ -1,5 +1,3 @@
-import { MetaActionI } from '..';
-
 export interface TodoStateI {
   readonly data: TodoRawI[];
   readonly loading: boolean;
