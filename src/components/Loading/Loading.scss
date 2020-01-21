@@ -1,0 +1,11 @@
+$this: 'loading';
+
+.component {
+  &.is-#{$this} {
+    width: 100%;
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+}
