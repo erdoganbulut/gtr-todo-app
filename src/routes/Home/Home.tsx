@@ -15,6 +15,29 @@ import TodoUpdate from '../../components/TodoUpdate';
 const Home: React.FC = () => {
   const dispatch = useDispatch();
 
+  const state: TodoStateI = useSelector(({ todo }: ApplicationStateI) => ({
+    loading: todo.loading,
+    errors: todo.errors,
+    data: todo.data,
+  }));
+
+  const dispatchPosts = useCallback(() => dispatch(fetchTodos()), [dispatch]);
+
+  const dispatchRemove = (id: number) => dispatch(removeTodo(id));
+
+  const dispatchUpdate = (item: TodoRawI, selected: boolean) => {
+    const updateData = {
+      title: item.title,
+      order: item.order,
+      completed: selected,
+    };
+    dispatch(updateTodo(item.id, updateData));
+  };
+
+  useEffect(() => {
+    dispatchPosts();
+  }, [dispatchPosts]);
+
   const [todoAddModal, setTodoAddModal] = useState(false);
 
   const [todoUpdateModal, setTodoUpdateModal] = useState({
@@ -28,31 +51,7 @@ const Home: React.FC = () => {
     },
   });
 
-  const state: TodoStateI = useSelector(({ todo }: ApplicationStateI) => ({
-    loading: todo.loading,
-    errors: todo.errors,
-    data: todo.data,
-  }));
-
-  const dispatchPosts = useCallback(() => dispatch(fetchTodos()), [dispatch]);
-
-  useEffect(() => {
-    dispatchPosts();
-  }, [dispatchPosts]);
-
-  const dispatchRemove = (id: number) => dispatch(removeTodo(id));
-
-  const dispatchUpdate = (item: TodoRawI, selected: boolean) => {
-    const updateData = {
-      title: item.title,
-      order: item.order,
-      completed: selected,
-    };
-    dispatch(updateTodo(item.id, updateData));
-  };
-
   const [selectedRows, setSelectedRows] = useState<number[] | string[]>([]);
-
   // rowSelection object indicates the need for row selection
   const rowSelection = {
     selectedRowKeys: selectedRows,
