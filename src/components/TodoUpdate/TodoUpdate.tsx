@@ -43,7 +43,7 @@ const TodoUpdate: React.FC<Props> = ({ updateModal, setUpdateModal }) => {
 
   useEffect(() => {
     dispatch({ type: 'reset', payload: updateModal.data });
-  }, [updateModal.isActive]);
+  }, [updateModal.isActive, updateModal.data]);
 
   const handleOk = () => {
     reduxDispatch(
