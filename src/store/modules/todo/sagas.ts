@@ -9,6 +9,8 @@ import {
   fetchTodos,
   addTodoSuccess,
   addTodoError,
+  updateTodoSuccess,
+  updateTodoError,
 } from './actions';
 import { TodoRawI, TodoActionTypes } from './types';
 
@@ -57,6 +59,20 @@ function* handleAdd(action: MetaActionI): Generator {
   }
 }
 
+function* handleUpdate(action: MetaActionI): Generator {
+  try {
+    yield call(apiCaller, action.meta.method, action.meta.route, action.meta.data);
+    yield put(updateTodoSuccess());
+    yield put(fetchTodos());
+  } catch (err) {
+    if (err instanceof Error) {
+      yield put(updateTodoError(err.stack!));
+    } else {
+      yield put(updateTodoError('An unknown error occured.'));
+    }
+  }
+}
+
 /**
  * @desc Watches every specified action and runs effect method and passes action args to it
  */
@@ -72,9 +88,18 @@ function* watchAddRequest(): Generator {
   yield takeEvery(TodoActionTypes.ADD_TODO_ITEM, handleAdd);
 }
 
+function* watchUpdateRequest(): Generator {
+  yield takeEvery(TodoActionTypes.UPDATE_TODO_ITEM, handleUpdate);
+}
+
 /**
  * @desc saga init, forks in effects, other sagas
  */
 export default function* todoSaga() {
-  yield all([fork(watchFetchRequest), fork(watchRemoveRequest), fork(watchAddRequest)]);
+  yield all([
+    fork(watchFetchRequest),
+    fork(watchRemoveRequest),
+    fork(watchAddRequest),
+    fork(watchUpdateRequest),
+  ]);
 }

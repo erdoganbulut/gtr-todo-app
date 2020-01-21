@@ -10,7 +10,7 @@ export type ApiResponse = Record<string, any>;
 export interface TodoItemI extends ApiResponse {
   order: number;
   title: string;
-  complated: boolean;
+  completed: boolean;
 }
 
 export interface TodoRawI extends TodoItemI {
@@ -28,6 +28,9 @@ export const TodoActionTypes = {
   ADD_TODO_ITEM: '@@todo/ADD_TODO_ITEM',
   ADD_TODO_ITEM_SUCCESS: '@@todo/ADD_TODO_ITEM_SUCCESS',
   ADD_TODO_ITEM_ERROR: '@@todo/ADD_TODO_ITEM_ERROR',
+  UPDATE_TODO_ITEM: '@@todo/UPDATE_TODO_ITEM',
+  UPDATE_TODO_ITEM_SUCCESS: '@@todo/UPDATE_TODO_ITEM_SUCCESS',
+  UPDATE_TODO_ITEM_ERROR: '@@todo/UPDATE_TODO_ITEM_ERROR',
 };
 
 export interface DispatchToPropsI {

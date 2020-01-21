@@ -1,67 +1,67 @@
 import React, { useReducer, useEffect } from 'react';
 import { Modal, Input, Checkbox } from 'antd';
 import { useDispatch } from 'react-redux';
-import { addTodo } from '../../store/modules/todo/actions';
+import { updateTodo } from '../../store/modules/todo/actions';
+import { TodoRawI, TodoItemI } from '../../store/modules/todo/types';
 
 type Props = {
-  isActive: boolean;
-  setIsActive: Function;
+  updateModal: {
+    isActive: boolean;
+    data: TodoRawI;
+  };
+  setUpdateModal: Function;
 };
-
-interface State {
-  title: string;
-  completed: boolean;
-}
 
 type Action =
   | { type: 'changeTitle'; payload: string }
   | { type: 'changeCompleted'; payload: boolean }
-  | { type: 'reset' };
+  | { type: 'reset'; payload: TodoItemI };
 
 const initialState = {
   title: '',
   completed: false,
+  order: 0,
 };
 
-const reducer = (state: State, action: Action) => {
+const reducer = (state: TodoItemI, action: Action) => {
   switch (action.type) {
     case 'changeTitle':
       return { ...state, title: action.payload };
     case 'changeCompleted':
       return { ...state, completed: action.payload };
     case 'reset':
-      return { ...initialState };
+      return { ...action.payload };
     default:
       throw new Error();
   }
 };
 
-const TodoAdd: React.FC<Props> = ({ isActive, setIsActive }) => {
+const TodoUpdate: React.FC<Props> = ({ updateModal, setUpdateModal }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const reduxDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'reset' });
-  }, [isActive]);
+    dispatch({ type: 'reset', payload: updateModal.data });
+  }, [updateModal.isActive]);
 
   const handleOk = () => {
     reduxDispatch(
-      addTodo({
+      updateTodo(updateModal.data.id, {
         completed: state.completed,
         title: state.title,
-        order: Math.floor(Math.random() * 1000),
+        order: state.order,
       }),
     );
-    setIsActive(false);
+    setUpdateModal({ ...updateModal, isActive: false });
   };
 
   return (
     <Modal
       title="Add To-do Item"
-      visible={isActive}
+      visible={updateModal.isActive}
       onOk={() => handleOk()}
-      onCancel={() => setIsActive(false)}
+      onCancel={() => setUpdateModal({ ...updateModal, isActive: false })}
     >
       <div>
         <Input
@@ -83,4 +83,4 @@ const TodoAdd: React.FC<Props> = ({ isActive, setIsActive }) => {
   );
 };
 
-export default TodoAdd;
+export default TodoUpdate;

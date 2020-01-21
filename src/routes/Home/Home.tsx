@@ -10,6 +10,7 @@ import { TodoStateI, TodoRawI } from '../../store/modules/todo/types';
 
 import TodoDelete from '../../components/TodoDelete';
 import TodoAdd from '../../components/TodoAdd';
+import TodoUpdate from '../../components/TodoUpdate';
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
@@ -25,7 +26,18 @@ const rowSelection = {
 const Home: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [todoAdd, setTodoAdd] = useState(false);
+  const [todoAddModal, setTodoAddModal] = useState(false);
+
+  const [todoUpdateModal, setTodoUpdateModal] = useState({
+    isActive: false,
+    data: {
+      id: 0,
+      url: '',
+      order: 0,
+      title: '',
+      completed: false,
+    },
+  });
 
   const state: TodoStateI = useSelector(({ todo }: ApplicationStateI) => ({
     loading: todo.loading,
@@ -43,9 +55,10 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <TodoAdd isActive={todoAdd} setIsActive={setTodoAdd} />
+      <TodoAdd isActive={todoAddModal} setIsActive={setTodoAddModal} />
+      <TodoUpdate updateModal={todoUpdateModal} setUpdateModal={setTodoUpdateModal} />
       <p className="tar">
-        <Button type="primary" onClick={() => setTodoAdd(true)}>
+        <Button type="primary" onClick={() => setTodoAddModal(true)}>
           Add Item
           <Icon type="plus" />
         </Button>
@@ -60,7 +73,10 @@ const Home: React.FC = () => {
             render={(text, record: TodoRawI) => (
               <>
                 <Button.Group size="small">
-                  <Button type="primary">
+                  <Button
+                    type="primary"
+                    onClick={() => setTodoUpdateModal({ isActive: true, data: record })}
+                  >
                     <Icon type="edit" />
                   </Button>
                   <Button type="danger" onClick={() => TodoDelete(record, dispatchRemove)}>

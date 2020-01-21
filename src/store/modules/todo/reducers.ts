@@ -52,6 +52,19 @@ export const todoReducer = (
     }
 
     /**
+     * UPDATE ITEM
+     */
+    case TodoActionTypes.UPDATE_TODO_ITEM: {
+      return { ...state, loading: true };
+    }
+    case TodoActionTypes.UPDATE_TODO_ITEM_SUCCESS: {
+      return { ...state, loading: false };
+    }
+    case TodoActionTypes.UPDATE_TODO_ITEM_ERROR: {
+      return { ...state };
+    }
+
+    /**
      * default
      */
     default:

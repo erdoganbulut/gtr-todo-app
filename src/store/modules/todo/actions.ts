@@ -44,3 +44,18 @@ export const addTodoSuccess = () => action(TodoActionTypes.ADD_TODO_ITEM_SUCCESS
 
 export const addTodoError = (message: string) =>
   action(TodoActionTypes.ADD_TODO_ITEM_ERROR, message);
+
+/**
+ * UPDATE ITEM
+ */
+export const updateTodo = (id: number, item: TodoItemI) =>
+  action(TodoActionTypes.UPDATE_TODO_ITEM, [], {
+    method: 'PATCH',
+    route: `/todos/${id}`,
+    data: item,
+  });
+
+export const updateTodoSuccess = () => action(TodoActionTypes.UPDATE_TODO_ITEM_SUCCESS);
+
+export const updateTodoError = (message: string) =>
+  action(TodoActionTypes.UPDATE_TODO_ITEM_ERROR, message);
