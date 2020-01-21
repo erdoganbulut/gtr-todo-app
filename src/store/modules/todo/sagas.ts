@@ -7,6 +7,8 @@ import {
   removeTodoSuccess,
   removeTodoError,
   fetchTodos,
+  addTodoSuccess,
+  addTodoError,
 } from './actions';
 import { TodoRawI, TodoActionTypes } from './types';
 
@@ -44,13 +46,13 @@ function* handleRemove(action: MetaActionI): Generator {
 function* handleAdd(action: MetaActionI): Generator {
   try {
     yield call(apiCaller, action.meta.method, action.meta.route, action.meta.data);
-    yield put(removeTodoSuccess());
+    yield put(addTodoSuccess());
     yield put(fetchTodos());
   } catch (err) {
     if (err instanceof Error) {
-      yield put(removeTodoError(err.stack!));
+      yield put(addTodoError(err.stack!));
     } else {
-      yield put(removeTodoError('An unknown error occured.'));
+      yield put(addTodoError('An unknown error occured.'));
     }
   }
 }
