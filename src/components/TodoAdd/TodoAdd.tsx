@@ -66,14 +66,14 @@ const TodoAdd: React.FC<Props> = ({ isActive, setIsActive }) => {
       <div>
         <Input
           placeholder="Title"
-          defaultValue={state.title}
+          value={state.title}
           onChange={e => dispatch({ type: 'changeTitle', payload: e.target.value })}
         />
       </div>
       <div>
         <br />
         <Checkbox
-          defaultChecked={state.complated}
+          checked={state.complated}
           onChange={e => dispatch({ type: 'changeComplated', payload: e.target.checked })}
         >
           Complated
